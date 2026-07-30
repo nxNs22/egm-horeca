@@ -440,9 +440,110 @@ function getSavedLanguage(): LanguageCode | null {
     : null;
 }
 
-export function LocalizedHome() {
+function useLocalizedSiteCopy() {
   const [language, setLanguage] = useState<LanguageCode>("ro");
   const copy = translations[language];
+
+  useEffect(() => {
+    const savedLanguage = getSavedLanguage();
+
+    if (!savedLanguage) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => setLanguage(savedLanguage), 0);
+
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = copy.htmlLang;
+    document.title = copy.documentTitle;
+  }, [copy.documentTitle, copy.htmlLang]);
+
+  function selectLanguage(nextLanguage: LanguageCode) {
+    setLanguage(nextLanguage);
+
+    try {
+      window.localStorage.setItem("egm-language", nextLanguage);
+    } catch {
+      // Ignore storage failures; the language button should still work.
+    }
+  }
+
+  return { copy, language, selectLanguage };
+}
+
+function SiteHeader({
+  copy,
+  language,
+  selectLanguage,
+  page,
+}: {
+  copy: SiteCopy;
+  language: LanguageCode;
+  selectLanguage: (language: LanguageCode) => void;
+  page: "home" | "contact";
+}) {
+  const homeHref = page === "home" ? "#home" : "/";
+  const productsHref = page === "home" ? "#products" : "/#products";
+  const servicesHref = page === "home" ? "#services" : "/#services";
+
+  return (
+    <header className="topbar">
+      <Link className="brand" href="/" aria-label="EGM Horeca SRL">
+        <span className="brand-mark" aria-hidden="true">
+          <span />
+          <span />
+        </span>
+        <span>
+          <strong>EGM HORECA SRL</strong>
+          <small>{copy.brandSubtitle}</small>
+        </span>
+      </Link>
+
+      <nav aria-label={copy.navLabel}>
+        <Link href={homeHref}>{copy.nav.home}</Link>
+        <Link href={productsHref}>{copy.nav.products}</Link>
+        <Link href={servicesHref}>{copy.nav.services}</Link>
+        <Link href="/contact">{copy.nav.contact}</Link>
+      </nav>
+
+      <label className="language-select">
+        <span className="sr-only">{copy.languageLabel}</span>
+        <select
+          value={language}
+          onChange={(event) =>
+            selectLanguage(event.target.value as LanguageCode)
+          }
+          aria-label={copy.languageLabel}
+        >
+          {languages.map((item) => (
+            <option value={item.code} key={item.code}>
+              {item.label}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <a className="icon-button topbar-call" href="tel:+40737247777">
+        <Phone size={18} aria-hidden="true" />
+        <span>+40 737 247 777</span>
+      </a>
+    </header>
+  );
+}
+
+function SiteFooter({ copy }: { copy: SiteCopy }) {
+  return (
+    <footer className="footer">
+      <span>EGM HORECA SRL</span>
+      <span>{copy.footer}</span>
+    </footer>
+  );
+}
+
+function ContactSection({ copy }: { copy: SiteCopy }) {
   const contactRows = [
     {
       label: copy.contact.companyLabel,
@@ -479,77 +580,70 @@ export function LocalizedHome() {
     },
   ];
 
-  useEffect(() => {
-    const savedLanguage = getSavedLanguage();
+  return (
+    <section className="contact-section" id="contact">
+      <div className="contact-title-band">
+        <h2>{copy.contact.pageTitle}</h2>
+      </div>
+      <div className="contact-inner">
+        <div className="contact-heading">
+          <h3>{copy.contact.heading}</h3>
+          <span aria-hidden="true" />
+          <p>{copy.contact.intro}</p>
+        </div>
+        <div className="contact-content">
+          <div className="contact-card" aria-label={copy.contact.heading}>
+            {contactRows.map(({ label, value, icon: Icon, href }) => {
+              const rowContent = (
+                <>
+                  <span className="contact-icon">
+                    <Icon size={18} aria-hidden="true" />
+                  </span>
+                  <span className="contact-row-text">
+                    <small>{label}</small>
+                    <strong>{value}</strong>
+                  </span>
+                </>
+              );
 
-    if (!savedLanguage) {
-      return;
-    }
+              return href ? (
+                <a className="contact-row" href={href} key={label}>
+                  {rowContent}
+                </a>
+              ) : (
+                <div className="contact-row" key={label}>
+                  {rowContent}
+                </div>
+              );
+            })}
+          </div>
+          <LeadForm copy={copy.form} />
+        </div>
+        <div className="map-panel">
+          <iframe
+            title={copy.contact.mapTitle}
+            src="https://www.google.com/maps?q=Str.%20Grindeiului%203A%2C%20Bucuresti&output=embed"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
 
-    const timeoutId = window.setTimeout(() => setLanguage(savedLanguage), 0);
-
-    return () => window.clearTimeout(timeoutId);
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.lang = copy.htmlLang;
-    document.title = copy.documentTitle;
-  }, [copy.documentTitle, copy.htmlLang]);
-
-  function selectLanguage(nextLanguage: LanguageCode) {
-    setLanguage(nextLanguage);
-
-    try {
-      window.localStorage.setItem("egm-language", nextLanguage);
-    } catch {
-      // Ignore storage failures; the language button should still work.
-    }
-  }
+export function LocalizedHome() {
+  const { copy, language, selectLanguage } = useLocalizedSiteCopy();
 
 
   return (
     <main className="site-shell" id="home">
-      <header className="topbar">
-        <Link className="brand" href="/" aria-label="EGM Horeca SRL">
-          <span className="brand-mark" aria-hidden="true">
-            <span />
-            <span />
-          </span>
-          <span>
-            <strong>EGM HORECA SRL</strong>
-            <small>{copy.brandSubtitle}</small>
-          </span>
-        </Link>
-
-        <nav aria-label={copy.navLabel}>
-          <a href="#home">{copy.nav.home}</a>
-          <a href="#products">{copy.nav.products}</a>
-          <a href="#services">{copy.nav.services}</a>
-          <a href="#contact">{copy.nav.contact}</a>
-        </nav>
-
-        <label className="language-select">
-          <span className="sr-only">{copy.languageLabel}</span>
-          <select
-            value={language}
-            onChange={(event) =>
-              selectLanguage(event.target.value as LanguageCode)
-            }
-            aria-label={copy.languageLabel}
-          >
-            {languages.map((item) => (
-              <option value={item.code} key={item.code}>
-                {item.label}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <a className="icon-button topbar-call" href="tel:+40737247777">
-          <Phone size={18} aria-hidden="true" />
-          <span>+40 737 247 777</span>
-        </a>
-      </header>
+      <SiteHeader
+        copy={copy}
+        language={language}
+        page="home"
+        selectLanguage={selectLanguage}
+      />
 
       <section className="hero" aria-labelledby="hero-title">
         <Image
@@ -566,10 +660,10 @@ export function LocalizedHome() {
           <h1 id="hero-title">EGM HORECA SRL</h1>
           <p className="hero-copy">{copy.hero.copy}</p>
           <div className="hero-actions">
-            <a className="primary-action" href="#contact">
+            <Link className="primary-action" href="/contact">
               <CalendarCheck size={19} aria-hidden="true" />
               <span>{copy.hero.primary}</span>
-            </a>
+            </Link>
             <a className="secondary-action" href="mailto:egmhoreca@gmail.com">
               <Mail size={19} aria-hidden="true" />
               <span>{copy.hero.secondary}</span>
@@ -585,10 +679,10 @@ export function LocalizedHome() {
             <span>{metric.label}</span>
           </div>
         ))}
-        <a href="#contact" className="quick-link">
+        <Link href="/contact" className="quick-link">
           <span>{copy.quickLink}</span>
           <ArrowRight size={18} aria-hidden="true" />
-        </a>
+        </Link>
       </section>
 
       <section className="section service-band" id="services">
@@ -643,59 +737,24 @@ export function LocalizedHome() {
         </div>
       </section>
 
-      <section className="contact-section" id="contact">
-        <div className="contact-title-band">
-          <h2>{copy.contact.pageTitle}</h2>
-        </div>
-        <div className="contact-inner">
-          <div className="contact-heading">
-            <h3>{copy.contact.heading}</h3>
-            <span aria-hidden="true" />
-            <p>{copy.contact.intro}</p>
-          </div>
-          <div className="contact-content">
-            <div className="contact-card" aria-label={copy.contact.heading}>
-              {contactRows.map(({ label, value, icon: Icon, href }) => {
-                const rowContent = (
-                  <>
-                    <span className="contact-icon">
-                      <Icon size={18} aria-hidden="true" />
-                    </span>
-                    <span className="contact-row-text">
-                      <small>{label}</small>
-                      <strong>{value}</strong>
-                    </span>
-                  </>
-                );
+      <SiteFooter copy={copy} />
+    </main>
+  );
+}
 
-                return href ? (
-                  <a className="contact-row" href={href} key={label}>
-                    {rowContent}
-                  </a>
-                ) : (
-                  <div className="contact-row" key={label}>
-                    {rowContent}
-                  </div>
-                );
-              })}
-            </div>
-            <LeadForm copy={copy.form} />
-          </div>
-          <div className="map-panel">
-            <iframe
-              title={copy.contact.mapTitle}
-              src="https://www.google.com/maps?q=Str.%20Grindeiului%203A%2C%20Bucuresti&output=embed"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-        </div>
-      </section>
+export function LocalizedContactPage() {
+  const { copy, language, selectLanguage } = useLocalizedSiteCopy();
 
-      <footer className="footer">
-        <span>EGM HORECA SRL</span>
-        <span>{copy.footer}</span>
-      </footer>
+  return (
+    <main className="site-shell contact-page-shell">
+      <SiteHeader
+        copy={copy}
+        language={language}
+        page="contact"
+        selectLanguage={selectLanguage}
+      />
+      <ContactSection copy={copy} />
+      <SiteFooter copy={copy} />
     </main>
   );
 }

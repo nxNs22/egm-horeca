@@ -503,6 +503,10 @@ button {
   background: #ffffff;
 }
 
+.contact-page-shell .contact-section {
+  padding-top: 74px;
+}
+
 .contact-title-band {
   align-items: center;
   background: #f4f6f9;
@@ -765,6 +769,10 @@ textarea:focus {
   .contact-content {
     grid-template-columns: 1fr;
   }
+
+  .contact-page-shell .contact-section {
+    padding-top: 124px;
+  }
 }
 
 @media (max-width: 720px) {
@@ -852,6 +860,10 @@ textarea:focus {
 
   .contact-title-band {
     min-height: 98px;
+  }
+
+  .contact-page-shell .contact-section {
+    padding-top: 132px;
   }
 
   .contact-inner {
