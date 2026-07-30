@@ -725,20 +725,95 @@ textarea:focus {
 }
 
 .footer {
-  align-items: center;
   background: var(--navy);
   color: #dce7f3;
+  padding: clamp(42px, 6vw, 70px) clamp(18px, 6vw, 84px) 0;
+}
+
+.footer-inner {
+  display: grid;
+  gap: clamp(28px, 5vw, 70px);
+  grid-template-columns: minmax(260px, 1.25fr) minmax(160px, 0.65fr) minmax(260px, 0.95fr);
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.footer-brand {
+  align-items: flex-start;
+  display: flex;
+  gap: 16px;
+}
+
+.footer-brand .brand-mark {
+  margin-top: 2px;
+}
+
+.footer-brand strong {
+  color: #ffffff;
+  display: block;
+  font-size: clamp(1.25rem, 2vw, 1.72rem);
+  font-weight: 920;
+  line-height: 1;
+}
+
+.footer-brand p {
+  color: #bdd0e2;
+  font-weight: 720;
+  line-height: 1.65;
+  margin: 14px 0 0;
+  max-width: 430px;
+}
+
+.footer-column {
+  display: grid;
+  gap: 12px;
+}
+
+.footer-column h2 {
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 920;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+
+.footer-column a,
+.footer-contact > span {
+  align-items: center;
+  color: #cbd9e7;
+  display: inline-flex;
+  font-size: 0.94rem;
+  font-weight: 760;
+  gap: 10px;
+  line-height: 1.35;
+}
+
+.footer-column a:hover {
+  color: #ffffff;
+}
+
+.footer-contact svg {
+  color: var(--cyan);
+  flex: 0 0 auto;
+}
+
+.footer-bottom {
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.13);
+  color: #a9bfd5;
   display: flex;
   flex-wrap: wrap;
+  font-size: 0.9rem;
   font-weight: 760;
   gap: 12px;
   justify-content: space-between;
-  padding: 24px clamp(18px, 6vw, 84px);
+  margin: clamp(36px, 5vw, 58px) auto 0;
+  max-width: 1180px;
+  padding: 18px 0 20px;
 }
 
-.footer span:first-child {
+.footer-bottom a {
   color: #ffffff;
-  font-weight: 920;
 }
 
 @media (max-width: 1060px) {
@@ -780,6 +855,14 @@ textarea:focus {
 
   .produce-page-shell .equipment-section {
     padding-top: calc(124px + 56px);
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
   }
 }
 
@@ -891,7 +974,20 @@ textarea:focus {
   }
 
   .footer {
-    align-items: stretch;
+    padding-top: 38px;
+  }
+
+  .footer-inner {
+    gap: 26px;
+    grid-template-columns: 1fr;
+  }
+
+  .footer-brand {
+    grid-column: auto;
+  }
+
+  .footer-bottom {
+    align-items: flex-start;
     flex-direction: column;
   }
 }

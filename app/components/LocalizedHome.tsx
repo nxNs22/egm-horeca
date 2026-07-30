@@ -537,8 +537,51 @@ function SiteHeader({
 function SiteFooter({ copy }: { copy: SiteCopy }) {
   return (
     <footer className="footer">
-      <span>EGM HORECA SRL</span>
-      <span>{copy.footer}</span>
+      <div className="footer-inner">
+        <div className="footer-brand">
+          <span className="brand-mark" aria-hidden="true">
+            <span />
+            <span />
+          </span>
+          <div>
+            <strong>EGM HORECA SRL</strong>
+            <p>{copy.footer}</p>
+          </div>
+        </div>
+
+        <nav className="footer-column" aria-label={copy.navLabel}>
+          <h2>{copy.navLabel}</h2>
+          <Link href="/">{copy.nav.home}</Link>
+          <Link href="/produce">{copy.nav.products}</Link>
+          <Link href="/#services">{copy.nav.services}</Link>
+          <Link href="/contact">{copy.nav.contact}</Link>
+        </nav>
+
+        <div className="footer-column footer-contact">
+          <h2>{copy.contact.pageTitle}</h2>
+          <a href="tel:+40737247777">
+            <Phone size={17} aria-hidden="true" />
+            <span>+40 737 247 777</span>
+          </a>
+          <a href="tel:+40770473493">
+            <Phone size={17} aria-hidden="true" />
+            <span>+40 770 473 493</span>
+          </a>
+          <a href="mailto:egmhoreca@gmail.com">
+            <Mail size={17} aria-hidden="true" />
+            <span>egmhoreca@gmail.com</span>
+          </a>
+          <span>
+            <MapPin size={17} aria-hidden="true" />
+            <span>Str. Grindeiului 3A, Bucuresti</span>
+          </span>
+        </div>
+      </div>
+
+      <div className="footer-bottom">
+        <span>© 2026 EGM HORECA SRL</span>
+        <a href="https://egmhoreca.ro">egmhoreca.ro</a>
+      </div>
     </footer>
   );
 }
