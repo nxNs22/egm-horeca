@@ -1,23 +1,21 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { Send, Wrench } from "lucide-react";
+import { Send } from "lucide-react";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
 export type LeadFormCopy = {
   title: string;
   name: string;
-  phone: string;
   email: string;
-  service: string;
-  details: string;
-  detailsPlaceholder: string;
+  subject: string;
+  message: string;
+  messagePlaceholder: string;
   submitting: string;
   submit: string;
   fallbackError: string;
   success: string;
-  options: string[];
 };
 
 export function LeadForm({ copy }: { copy: LeadFormCopy }) {
@@ -57,7 +55,6 @@ export function LeadForm({ copy }: { copy: LeadFormCopy }) {
   return (
     <form className="lead-form" onSubmit={handleSubmit} key={copy.title}>
       <div className="form-title">
-        <Wrench size={22} aria-hidden="true" />
         <h2>{copy.title}</h2>
       </div>
 
@@ -67,32 +64,21 @@ export function LeadForm({ copy }: { copy: LeadFormCopy }) {
       </label>
 
       <label>
-        {copy.phone}
-        <input name="phone" type="tel" autoComplete="tel" required />
-      </label>
-
-      <label>
         {copy.email}
-        <input name="email" type="email" autoComplete="email" />
+        <input name="email" type="email" autoComplete="email" required />
       </label>
 
       <label>
-        {copy.service}
-        <select name="service" defaultValue={copy.options[0]}>
-          {copy.options.map((option) => (
-            <option value={option} key={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+        {copy.subject}
+        <input name="subject" type="text" required />
       </label>
 
       <label>
-        {copy.details}
+        {copy.message}
         <textarea
           name="message"
-          rows={4}
-          placeholder={copy.detailsPlaceholder}
+          rows={7}
+          placeholder={copy.messagePlaceholder}
         />
       </label>
 

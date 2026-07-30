@@ -8,6 +8,7 @@ export type ServiceRequest = {
   name: string;
   phone: string;
   email: string;
+  subject: string;
   service: string;
   message: string;
   status: RequestStatus;
@@ -17,8 +18,9 @@ export type ServiceRequest = {
 
 export type NewServiceRequest = {
   name: string;
-  phone: string;
+  phone?: string;
   email?: string;
+  subject?: string;
   service?: string;
   message?: string;
 };
@@ -38,22 +40,24 @@ export function validateRequestInput(input: Record<string, unknown>) {
   const name = cleanText(input.name, 120);
   const phone = cleanText(input.phone, 60);
   const email = cleanText(input.email, 140);
-  const service = cleanText(input.service, 120) || "Service echipament";
+  const subject = cleanText(input.subject, 160);
+  const service =
+    cleanText(input.service, 120) || subject || "Contact website";
   const message = cleanText(input.message, 1200);
 
   if (!name) {
     throw new Error("Numele este obligatoriu.");
   }
 
-  if (!phone) {
-    throw new Error("Telefonul este obligatoriu.");
+  if (!phone && !email) {
+    throw new Error("Telefonul sau emailul este obligatoriu.");
   }
 
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     throw new Error("Emailul nu este valid.");
   }
 
-  return { name, phone, email, service, message };
+  return { name, phone, email, subject, service, message };
 }
 
 async function ensureStorageDir() {
@@ -86,9 +90,10 @@ export async function createServiceRequest(input: NewServiceRequest) {
   const request: ServiceRequest = {
     id: crypto.randomUUID(),
     name: input.name,
-    phone: input.phone,
+    phone: input.phone ?? "",
     email: input.email ?? "",
-    service: input.service ?? "Service echipament",
+    subject: input.subject ?? input.service ?? "",
+    service: input.service ?? input.subject ?? "Contact website",
     message: input.message ?? "",
     status: "nou",
     createdAt: now,

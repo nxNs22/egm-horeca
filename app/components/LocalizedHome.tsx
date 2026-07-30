@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
   ArrowRight,
+  Building2,
   CalendarCheck,
   CheckCircle2,
   ChefHat,
@@ -12,6 +13,7 @@ import {
   Cog,
   Fan,
   Gauge,
+  Globe2,
   IceCreamBowl,
   Mail,
   MapPin,
@@ -29,8 +31,9 @@ type SiteCopy = {
   brandSubtitle: string;
   navLabel: string;
   nav: {
+    home: string;
+    products: string;
     services: string;
-    equipment: string;
     contact: string;
   };
   languageLabel: string;
@@ -57,8 +60,16 @@ type SiteCopy = {
     steps: string[];
   };
   contact: {
-    eyebrow: string;
+    pageTitle: string;
+    heading: string;
+    intro: string;
     role: string;
+    companyLabel: string;
+    addressLabel: string;
+    phoneLabel: string;
+    emailLabel: string;
+    websiteLabel: string;
+    mapTitle: string;
   };
   footer: string;
   form: LeadFormCopy;
@@ -78,8 +89,9 @@ const translations: Record<LanguageCode, SiteCopy> = {
     brandSubtitle: "Service echipamente profesionale HoReCa",
     navLabel: "Navigare principala",
     nav: {
+      home: "Acasa",
+      products: "Produse",
       services: "Servicii",
-      equipment: "Echipamente",
       contact: "Contact",
     },
     languageLabel: "Selectare limba",
@@ -131,30 +143,31 @@ const translations: Record<LanguageCode, SiteCopy> = {
       ],
     },
     contact: {
-      eyebrow: "Contact direct",
+      pageTitle: "Contact",
+      heading: "Contacteaza-ne",
+      intro:
+        "Suntem deschisi sa iti raspundem la intrebarile despre produsele si serviciile noastre, precum si la modalitatile de colaborare existente.",
       role: "Administrator",
+      companyLabel: "Companie",
+      addressLabel: "Adresa",
+      phoneLabel: "Telefon",
+      emailLabel: "Email",
+      websiteLabel: "Website",
+      mapTitle: "Harta EGM Horeca SRL",
     },
     footer: "Mentinem bucatariile profesionale in functiune.",
     form: {
-      title: "Solicitare service",
+      title: "Trimite mesaj",
       name: "Nume",
-      phone: "Telefon",
       email: "Email",
-      service: "Tip serviciu",
-      details: "Detalii",
-      detailsPlaceholder: "Echipament, model, problema observata",
+      subject: "Subiect",
+      message: "Mesaj",
+      messagePlaceholder: "Scrie mesajul tau aici",
       submitting: "Se trimite",
-      submit: "Trimite solicitarea",
+      submit: "Trimite",
       fallbackError: "Cererea nu a putut fi trimisa.",
       success:
         "Solicitarea a fost trimisa. Va contactam in cel mai scurt timp.",
-      options: [
-        "Reparatie urgenta",
-        "Mentenanta preventiva",
-        "Piese de schimb",
-        "Montaj si punere in functiune",
-        "Diagnostic echipament",
-      ],
     },
   },
   en: {
@@ -163,8 +176,9 @@ const translations: Record<LanguageCode, SiteCopy> = {
     brandSubtitle: "Professional HoReCa equipment service",
     navLabel: "Main navigation",
     nav: {
+      home: "Home",
+      products: "Products",
       services: "Services",
-      equipment: "Equipment",
       contact: "Contact",
     },
     languageLabel: "Language selector",
@@ -211,29 +225,30 @@ const translations: Record<LanguageCode, SiteCopy> = {
       steps: ["Request intake", "Technical diagnosis", "Repair and testing"],
     },
     contact: {
-      eyebrow: "Direct contact",
+      pageTitle: "Contact",
+      heading: "Contact us",
+      intro:
+        "We are ready to answer questions about our products, services, and collaboration options.",
       role: "Administrator",
+      companyLabel: "Company",
+      addressLabel: "Address",
+      phoneLabel: "Phone",
+      emailLabel: "Email",
+      websiteLabel: "Website",
+      mapTitle: "EGM Horeca SRL map",
     },
     footer: "Keeping professional kitchens running.",
     form: {
-      title: "Service request",
+      title: "Send message",
       name: "Name",
-      phone: "Phone",
       email: "Email",
-      service: "Service type",
-      details: "Details",
-      detailsPlaceholder: "Equipment, model, observed issue",
+      subject: "Subject",
+      message: "Message",
+      messagePlaceholder: "Write your message here",
       submitting: "Sending",
-      submit: "Send request",
+      submit: "Submit",
       fallbackError: "The request could not be sent.",
       success: "Your request has been sent. We will contact you shortly.",
-      options: [
-        "Urgent repair",
-        "Preventive maintenance",
-        "Spare parts",
-        "Installation and commissioning",
-        "Equipment diagnosis",
-      ],
     },
   },
   tr: {
@@ -242,8 +257,9 @@ const translations: Record<LanguageCode, SiteCopy> = {
     brandSubtitle: "Profesyonel HoReCa ekipman servisi",
     navLabel: "Ana navigasyon",
     nav: {
+      home: "Ana Sayfa",
+      products: "Ürünler",
       services: "Hizmetler",
-      equipment: "Ekipmanlar",
       contact: "İletişim",
     },
     languageLabel: "Dil seçici",
@@ -290,29 +306,30 @@ const translations: Record<LanguageCode, SiteCopy> = {
       steps: ["Talep alımı", "Teknik teşhis", "Tamir ve test"],
     },
     contact: {
-      eyebrow: "Doğrudan iletişim",
+      pageTitle: "İletişim",
+      heading: "Bizimle iletişime geçin",
+      intro:
+        "Ürünlerimiz, hizmetlerimiz ve iş birliği seçeneklerimiz hakkındaki sorularınızı yanıtlamaya hazırız.",
       role: "Yönetici",
+      companyLabel: "Firma",
+      addressLabel: "Adres",
+      phoneLabel: "Telefon",
+      emailLabel: "E-posta",
+      websiteLabel: "Website",
+      mapTitle: "EGM Horeca SRL haritası",
     },
     footer: "Profesyonel mutfakları çalışır durumda tutuyoruz.",
     form: {
-      title: "Servis talebi",
+      title: "Mesaj gönder",
       name: "Ad Soyad",
-      phone: "Telefon",
       email: "E-posta",
-      service: "Hizmet türü",
-      details: "Detaylar",
-      detailsPlaceholder: "Ekipman, model, görülen sorun",
+      subject: "Konu",
+      message: "Mesaj",
+      messagePlaceholder: "Mesajınızı buraya yazın",
       submitting: "Gönderiliyor",
-      submit: "Talebi gönder",
+      submit: "Gönder",
       fallbackError: "Talep gönderilemedi.",
       success: "Talebiniz gönderildi. En kısa sürede sizinle iletişime geçeceğiz.",
-      options: [
-        "Acil tamir",
-        "Önleyici bakım",
-        "Yedek parçalar",
-        "Montaj ve devreye alma",
-        "Ekipman teşhisi",
-      ],
     },
   },
   de: {
@@ -321,8 +338,9 @@ const translations: Record<LanguageCode, SiteCopy> = {
     brandSubtitle: "Service für professionelle HoReCa-Geräte",
     navLabel: "Hauptnavigation",
     nav: {
+      home: "Startseite",
+      products: "Produkte",
       services: "Leistungen",
-      equipment: "Geräte",
       contact: "Kontakt",
     },
     languageLabel: "Sprachauswahl",
@@ -369,29 +387,30 @@ const translations: Record<LanguageCode, SiteCopy> = {
       steps: ["Anfrage aufnehmen", "Technische Diagnose", "Reparatur und Test"],
     },
     contact: {
-      eyebrow: "Direkter Kontakt",
+      pageTitle: "Kontakt",
+      heading: "Kontaktieren Sie uns",
+      intro:
+        "Wir beantworten gerne Fragen zu unseren Produkten, Leistungen und Möglichkeiten der Zusammenarbeit.",
       role: "Administrator",
+      companyLabel: "Unternehmen",
+      addressLabel: "Adresse",
+      phoneLabel: "Telefon",
+      emailLabel: "E-Mail",
+      websiteLabel: "Website",
+      mapTitle: "Karte EGM Horeca SRL",
     },
     footer: "Wir halten professionelle Küchen in Betrieb.",
     form: {
-      title: "Serviceanfrage",
+      title: "Nachricht senden",
       name: "Name",
-      phone: "Telefon",
       email: "E-Mail",
-      service: "Serviceart",
-      details: "Details",
-      detailsPlaceholder: "Gerät, Modell, beobachtetes Problem",
+      subject: "Betreff",
+      message: "Nachricht",
+      messagePlaceholder: "Schreiben Sie Ihre Nachricht hier",
       submitting: "Wird gesendet",
-      submit: "Anfrage senden",
+      submit: "Senden",
       fallbackError: "Die Anfrage konnte nicht gesendet werden.",
       success: "Ihre Anfrage wurde gesendet. Wir kontaktieren Sie in Kürze.",
-      options: [
-        "Dringende Reparatur",
-        "Vorbeugende Wartung",
-        "Ersatzteile",
-        "Montage und Inbetriebnahme",
-        "Gerätediagnose",
-      ],
     },
   },
 };
@@ -424,6 +443,41 @@ function getSavedLanguage(): LanguageCode | null {
 export function LocalizedHome() {
   const [language, setLanguage] = useState<LanguageCode>("ro");
   const copy = translations[language];
+  const contactRows = [
+    {
+      label: copy.contact.companyLabel,
+      value: "EGM HORECA SRL",
+      icon: Building2,
+    },
+    {
+      label: copy.contact.role,
+      value: "Aly Charyyev",
+      icon: ShieldCheck,
+    },
+    {
+      label: copy.contact.addressLabel,
+      value: "Str. Grindeiului 3A, Bucuresti",
+      icon: MapPin,
+    },
+    {
+      label: copy.contact.phoneLabel,
+      value: "+40 737 247 777 / +40 770 473 493",
+      icon: Phone,
+      href: "tel:+40737247777",
+    },
+    {
+      label: copy.contact.emailLabel,
+      value: "egmhoreca@gmail.com",
+      icon: Mail,
+      href: "mailto:egmhoreca@gmail.com",
+    },
+    {
+      label: copy.contact.websiteLabel,
+      value: "egmhoreca.ro",
+      icon: Globe2,
+      href: "https://egmhoreca.ro",
+    },
+  ];
 
   useEffect(() => {
     const savedLanguage = getSavedLanguage();
@@ -454,7 +508,7 @@ export function LocalizedHome() {
 
 
   return (
-    <main className="site-shell">
+    <main className="site-shell" id="home">
       <header className="topbar">
         <Link className="brand" href="/" aria-label="EGM Horeca SRL">
           <span className="brand-mark" aria-hidden="true">
@@ -468,8 +522,9 @@ export function LocalizedHome() {
         </Link>
 
         <nav aria-label={copy.navLabel}>
-          <a href="#servicii">{copy.nav.services}</a>
-          <a href="#echipamente">{copy.nav.equipment}</a>
+          <a href="#home">{copy.nav.home}</a>
+          <a href="#products">{copy.nav.products}</a>
+          <a href="#services">{copy.nav.services}</a>
           <a href="#contact">{copy.nav.contact}</a>
         </nav>
 
@@ -536,7 +591,7 @@ export function LocalizedHome() {
         </a>
       </section>
 
-      <section className="section service-band" id="servicii">
+      <section className="section service-band" id="services">
         <div className="section-heading">
           <p className="eyebrow">{copy.servicesEyebrow}</p>
           <h2>{copy.servicesTitle}</h2>
@@ -551,7 +606,7 @@ export function LocalizedHome() {
         </div>
       </section>
 
-      <section className="section equipment-section" id="echipamente">
+      <section className="section equipment-section" id="products">
         <div className="section-heading compact">
           <p className="eyebrow">{copy.equipmentEyebrow}</p>
           <h2>{copy.equipmentTitle}</h2>
@@ -588,31 +643,53 @@ export function LocalizedHome() {
         </div>
       </section>
 
-      <section className="section contact-section" id="contact">
-        <div className="contact-details">
-          <p className="eyebrow">{copy.contact.eyebrow}</p>
-          <h2>Aly Charyyev</h2>
-          <p className="role">{copy.contact.role}</p>
-          <div className="contact-list">
-            <a href="tel:+40737247777">
-              <Phone size={20} aria-hidden="true" />
-              <span>+40 737 247 777</span>
-            </a>
-            <a href="tel:+40770473493">
-              <Phone size={20} aria-hidden="true" />
-              <span>+40 770 473 493</span>
-            </a>
-            <a href="mailto:egmhoreca@gmail.com">
-              <Mail size={20} aria-hidden="true" />
-              <span>egmhoreca@gmail.com</span>
-            </a>
-            <span>
-              <MapPin size={20} aria-hidden="true" />
-              <span>Str. Grindeiului 3A, Bucuresti</span>
-            </span>
+      <section className="contact-section" id="contact">
+        <div className="contact-title-band">
+          <h2>{copy.contact.pageTitle}</h2>
+        </div>
+        <div className="contact-inner">
+          <div className="contact-heading">
+            <h3>{copy.contact.heading}</h3>
+            <span aria-hidden="true" />
+            <p>{copy.contact.intro}</p>
+          </div>
+          <div className="contact-content">
+            <div className="contact-card" aria-label={copy.contact.heading}>
+              {contactRows.map(({ label, value, icon: Icon, href }) => {
+                const rowContent = (
+                  <>
+                    <span className="contact-icon">
+                      <Icon size={18} aria-hidden="true" />
+                    </span>
+                    <span className="contact-row-text">
+                      <small>{label}</small>
+                      <strong>{value}</strong>
+                    </span>
+                  </>
+                );
+
+                return href ? (
+                  <a className="contact-row" href={href} key={label}>
+                    {rowContent}
+                  </a>
+                ) : (
+                  <div className="contact-row" key={label}>
+                    {rowContent}
+                  </div>
+                );
+              })}
+            </div>
+            <LeadForm copy={copy.form} />
+          </div>
+          <div className="map-panel">
+            <iframe
+              title={copy.contact.mapTitle}
+              src="https://www.google.com/maps?q=Str.%20Grindeiului%203A%2C%20Bucuresti&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
-        <LeadForm copy={copy.form} />
       </section>
 
       <footer className="footer">
