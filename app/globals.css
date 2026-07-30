@@ -416,6 +416,10 @@ button {
     linear-gradient(90deg, #08305a, #0a6ac7);
 }
 
+.produce-page-shell .equipment-section {
+  padding-top: calc(74px + clamp(62px, 9vw, 112px));
+}
+
 .equipment-section .eyebrow,
 .equipment-section h2 {
   color: #ffffff;
@@ -773,6 +777,10 @@ textarea:focus {
   .contact-page-shell .contact-section {
     padding-top: 124px;
   }
+
+  .produce-page-shell .equipment-section {
+    padding-top: calc(124px + 56px);
+  }
 }
 
 @media (max-width: 720px) {
@@ -864,6 +872,10 @@ textarea:focus {
 
   .contact-page-shell .contact-section {
     padding-top: 132px;
+  }
+
+  .produce-page-shell .equipment-section {
+    padding-top: calc(132px + 56px);
   }
 
   .contact-inner {

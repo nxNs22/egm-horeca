@@ -483,10 +483,10 @@ function SiteHeader({
   copy: SiteCopy;
   language: LanguageCode;
   selectLanguage: (language: LanguageCode) => void;
-  page: "home" | "contact";
+  page: "home" | "contact" | "produce";
 }) {
   const homeHref = page === "home" ? "#home" : "/";
-  const productsHref = page === "home" ? "#products" : "/#products";
+  const productsHref = "/produce";
   const servicesHref = page === "home" ? "#services" : "/#services";
 
   return (
@@ -632,6 +632,37 @@ function ContactSection({ copy }: { copy: SiteCopy }) {
   );
 }
 
+function ProductsSection({
+  copy,
+  language,
+}: {
+  copy: SiteCopy;
+  language: LanguageCode;
+}) {
+  return (
+    <section className="section equipment-section" id="products">
+      <div className="section-heading compact">
+        <p className="eyebrow">{copy.equipmentEyebrow}</p>
+        <h2>{copy.equipmentTitle}</h2>
+      </div>
+      <div className="equipment-grid">
+        {copy.equipment.map((name, index) => {
+          const Icon = equipmentIcons[index];
+
+          return (
+            <article className="equipment-item" key={`${language}-${name}`}>
+              <span>
+                <Icon size={24} aria-hidden="true" />
+              </span>
+              <h3>{name}</h3>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 export function LocalizedHome() {
   const { copy, language, selectLanguage } = useLocalizedSiteCopy();
 
@@ -700,26 +731,7 @@ export function LocalizedHome() {
         </div>
       </section>
 
-      <section className="section equipment-section" id="products">
-        <div className="section-heading compact">
-          <p className="eyebrow">{copy.equipmentEyebrow}</p>
-          <h2>{copy.equipmentTitle}</h2>
-        </div>
-        <div className="equipment-grid">
-          {copy.equipment.map((name, index) => {
-            const Icon = equipmentIcons[index];
-
-            return (
-              <article className="equipment-item" key={`${language}-${name}`}>
-                <span>
-                  <Icon size={24} aria-hidden="true" />
-                </span>
-                <h3>{name}</h3>
-              </article>
-            );
-          })}
-        </div>
-      </section>
+      <ProductsSection copy={copy} language={language} />
 
       <section className="section workflow-section">
         <div className="workflow-copy">
@@ -754,6 +766,23 @@ export function LocalizedContactPage() {
         selectLanguage={selectLanguage}
       />
       <ContactSection copy={copy} />
+      <SiteFooter copy={copy} />
+    </main>
+  );
+}
+
+export function LocalizedProducePage() {
+  const { copy, language, selectLanguage } = useLocalizedSiteCopy();
+
+  return (
+    <main className="site-shell produce-page-shell">
+      <SiteHeader
+        copy={copy}
+        language={language}
+        page="produce"
+        selectLanguage={selectLanguage}
+      />
+      <ProductsSection copy={copy} language={language} />
       <SiteFooter copy={copy} />
     </main>
   );
