@@ -3,7 +3,7 @@ import { parse } from "url";
 import next from "next";
 
 const dev = process.env.NODE_ENV !== "production";
-const hostname = process.env.HOSTNAME || "127.0.0.1";
+const hostname = process.env.HOST || "127.0.0.1";
 const port = Number(process.env.PORT || 3000);
 
 const app = next({ dev, hostname, port });
