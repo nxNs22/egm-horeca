@@ -17,7 +17,7 @@ The public site is at `/`.
 Create `.env.local` from `.env.example` before production:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://egmhoreca.ro
+NEXT_PUBLIC_SITE_URL=https://www.egmhoreca.ro
 ```
 
 ## Cyberfolks Deployment
@@ -62,3 +62,20 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
 ```
+
+## SEO Launch Checklist
+
+After production deploy, add the site to Google Search Console and submit:
+
+```text
+https://www.egmhoreca.ro/sitemap.xml
+```
+
+Keep `https://www.egmhoreca.ro` as the canonical production URL in Vercel:
+
+```text
+NEXT_PUBLIC_SITE_URL=https://www.egmhoreca.ro
+```
+
+For local ranking, verify the Google Business Profile for EGM Horeca SRL and
+keep the name, phone, address, service category, photos, and reviews updated.
