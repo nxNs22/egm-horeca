@@ -49,6 +49,7 @@ type SiteCopy = {
   servicesEyebrow: string;
   servicesTitle: string;
   services: string[];
+  ovenRepairLink: string;
   equipmentEyebrow: string;
   equipmentTitle: string;
   equipment: string[];
@@ -119,6 +120,7 @@ const translations: Record<LanguageCode, SiteCopy> = {
       "Montaj si punere in functiune",
       "Interventii rapide la sediul clientului",
     ],
+    ovenRepairLink: "Reparatii cuptoare profesionale in Bucuresti",
     equipmentEyebrow: "Echipamente deservite",
     equipmentTitle: "De la linia calda la zona de spalare si refrigerare.",
     equipment: [
@@ -205,6 +207,7 @@ const translations: Record<LanguageCode, SiteCopy> = {
       "Installation and commissioning",
       "Fast on-site interventions",
     ],
+    ovenRepairLink: "Professional oven repairs in Bucharest",
     equipmentEyebrow: "Equipment we service",
     equipmentTitle: "From the hot line to washing and refrigeration areas.",
     equipment: [
@@ -286,6 +289,7 @@ const translations: Record<LanguageCode, SiteCopy> = {
       "Montaj ve devreye alma",
       "Müşteri adresinde hızlı müdahale",
     ],
+    ovenRepairLink: "Bükreş'te profesyonel fırın tamiri",
     equipmentEyebrow: "Servis verdiğimiz ekipmanlar",
     equipmentTitle: "Sıcak hattan yıkama ve soğutma alanlarına kadar.",
     equipment: [
@@ -367,6 +371,7 @@ const translations: Record<LanguageCode, SiteCopy> = {
       "Montage und Inbetriebnahme",
       "Schnelle Einsätze beim Kunden",
     ],
+    ovenRepairLink: "Reparaturen professioneller Öfen in Bukarest",
     equipmentEyebrow: "Betreute Geräte",
     equipmentTitle: "Von der warmen Linie bis zu Spül- und Kühlbereichen.",
     equipment: [
@@ -772,6 +777,13 @@ export function LocalizedHome() {
             </article>
           ))}
         </div>
+        <Link
+          className="service-detail-link"
+          href="/reparatii-cuptoare-profesionale-bucuresti"
+        >
+          <span>{copy.ovenRepairLink}</span>
+          <ArrowRight size={18} aria-hidden="true" />
+        </Link>
       </section>
 
       <ProductsSection copy={copy} language={language} />

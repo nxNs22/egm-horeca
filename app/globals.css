@@ -382,6 +382,24 @@ button {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.service-detail-link {
+  align-items: center;
+  background: var(--navy);
+  border-radius: 7px;
+  color: #ffffff;
+  display: inline-flex;
+  font-weight: 850;
+  gap: 10px;
+  justify-content: space-between;
+  margin-top: 20px;
+  min-height: 48px;
+  padding: 0 18px;
+}
+
+.service-detail-link:hover {
+  background: var(--blue);
+}
+
 .service-card,
 .equipment-item {
   border-radius: 8px;
@@ -816,6 +834,187 @@ textarea:focus {
   color: #ffffff;
 }
 
+.seo-service-page {
+  background: #ffffff;
+}
+
+.seo-hero {
+  align-items: center;
+  background:
+    linear-gradient(90deg, rgba(246, 249, 252, 0.98), rgba(246, 249, 252, 0.88)),
+    linear-gradient(135deg, rgba(8, 117, 216, 0.18), rgba(6, 23, 43, 0.1));
+  display: grid;
+  gap: clamp(28px, 5vw, 68px);
+  grid-template-columns: minmax(280px, 1.1fr) minmax(280px, 0.72fr);
+  min-height: 74vh;
+  padding: 142px clamp(18px, 6vw, 84px) 70px;
+}
+
+.seo-hero h1 {
+  color: var(--navy);
+  font-size: clamp(2.55rem, 6.4vw, 6rem);
+  font-weight: 950;
+  line-height: 0.96;
+  margin: 0;
+  max-width: 12ch;
+}
+
+.seo-hero p:not(.eyebrow) {
+  color: #20334b;
+  font-size: clamp(1.02rem, 1.8vw, 1.34rem);
+  font-weight: 650;
+  line-height: 1.55;
+  margin: 26px 0 0;
+  max-width: 790px;
+}
+
+.seo-hero-panel {
+  background: var(--navy);
+  border-radius: 8px;
+  color: #ffffff;
+  display: grid;
+  gap: 1px;
+  overflow: hidden;
+}
+
+.seo-hero-panel div {
+  background: rgba(255, 255, 255, 0.055);
+  display: grid;
+  gap: 8px;
+  min-height: 126px;
+  padding: 24px;
+}
+
+.seo-hero-panel svg {
+  color: var(--cyan);
+}
+
+.seo-hero-panel strong {
+  color: #ffffff;
+  font-size: 1.08rem;
+  font-weight: 880;
+}
+
+.seo-hero-panel span {
+  color: #c9d7e7;
+  font-weight: 680;
+  line-height: 1.45;
+}
+
+.service-detail-section {
+  background: #ffffff;
+}
+
+.service-detail-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.service-detail-card {
+  align-items: start;
+  background: var(--soft);
+  border: 1px solid #e2e9f1;
+  border-radius: 8px;
+  display: grid;
+  gap: 18px;
+  min-height: 146px;
+  padding: 24px;
+}
+
+.service-detail-card svg {
+  color: var(--blue);
+}
+
+.service-detail-card h3 {
+  color: var(--ink);
+  font-size: clamp(1.02rem, 1.55vw, 1.2rem);
+  font-weight: 850;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.service-process-section {
+  align-items: center;
+  background: #f8fbff;
+  display: grid;
+  gap: clamp(30px, 6vw, 72px);
+  grid-template-columns: minmax(260px, 0.95fr) minmax(300px, 1.05fr);
+}
+
+.faq-section {
+  background: #ffffff;
+}
+
+.faq-list {
+  display: grid;
+  gap: 12px;
+}
+
+.faq-item {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 22px 24px;
+}
+
+.faq-item h3 {
+  color: var(--navy);
+  font-size: clamp(1.05rem, 1.8vw, 1.26rem);
+  font-weight: 880;
+  margin: 0;
+}
+
+.faq-item p {
+  color: #3c4b63;
+  font-size: 1rem;
+  font-weight: 620;
+  line-height: 1.65;
+  margin: 10px 0 0;
+}
+
+.service-cta {
+  align-items: center;
+  background: linear-gradient(135deg, var(--blue), var(--blue-strong));
+  color: #ffffff;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: auto minmax(240px, 1fr) auto;
+  padding: clamp(34px, 5vw, 58px) clamp(18px, 6vw, 84px);
+}
+
+.service-cta h2 {
+  color: #ffffff;
+  font-size: clamp(1.55rem, 3vw, 2.55rem);
+  font-weight: 920;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.service-cta p {
+  color: #eaf5ff;
+  font-weight: 680;
+  line-height: 1.6;
+  margin: 12px 0 0;
+  max-width: 760px;
+}
+
+.service-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.service-cta .primary-action {
+  background: #ffffff;
+  color: var(--navy);
+}
+
+.service-cta .secondary-action {
+  background: rgba(6, 23, 43, 0.38);
+  color: #ffffff;
+}
+
 @media (max-width: 1060px) {
   .topbar {
     grid-template-columns: 1fr auto auto;
@@ -845,8 +1044,22 @@ textarea:focus {
 
   .section-heading,
   .workflow-section,
+  .seo-hero,
+  .service-process-section,
   .contact-content {
     grid-template-columns: 1fr;
+  }
+
+  .service-detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .service-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .service-cta-actions {
+    justify-content: flex-start;
   }
 
   .contact-page-shell .contact-section {
@@ -936,6 +1149,7 @@ textarea:focus {
   }
 
   .service-grid,
+  .service-detail-grid,
   .equipment-grid {
     grid-template-columns: 1fr;
   }
@@ -947,6 +1161,24 @@ textarea:focus {
 
   .section {
     padding: 56px 18px;
+  }
+
+  .seo-hero {
+    min-height: auto;
+    padding: 176px 18px 54px;
+  }
+
+  .seo-hero h1 {
+    max-width: 11ch;
+  }
+
+  .service-detail-link {
+    align-items: center;
+    width: 100%;
+  }
+
+  .service-cta {
+    padding: 38px 18px;
   }
 
   .contact-title-band {
