@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   creator: "EGM Horeca SRL",
   publisher: "EGM Horeca SRL",
   category: "HoReCa equipment service",
+  verification: {
+    google: "BsuOdkqrQdbwQT4AnwSGcLLh9AAywmK6GruX6r3tABM",
+  },
   openGraph: {
     title: "EGM Horeca SRL",
     description:
